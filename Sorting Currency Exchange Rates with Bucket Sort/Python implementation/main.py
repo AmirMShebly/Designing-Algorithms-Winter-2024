@@ -16,8 +16,12 @@ def bucket_sort_exchange_rates(rates):
 
     buckets = [[] for _ in range(num_buckets)]
 
+    max_val = float('-inf')
     for rate in rates:
-        bucket_index = min(int(rate * num_buckets), num_buckets - 1)
+        max_val = max(max_val, rate)
+
+    for rate in rates:
+        bucket_index = int((rate / max_val) * num_buckets - 1)
         buckets[bucket_index].append(rate)
 
     for bucket in buckets:
